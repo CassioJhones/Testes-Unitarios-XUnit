@@ -32,13 +32,16 @@ public class OfertaViagemConstrutor
         Assert.False(oferta.EhValido);
     }
 
-    [Fact]
-    public void RetornaMensagemDeErroPrecoInvalidoQuandoPrecoMenorQueZero()
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-50)]
+    [InlineData(-350.60)]
+    [InlineData(-0)]
+    public void RetornaMensagemDeErroPrecoInvalidoQuandoPrecoMenorQueZero(double preco)
     {
         //--CENARIO = ARRANGE
         Rota rota = new Rota("Rio Claro", "Araras");
         Periodo periodo = new Periodo(new DateTime(2024, 2, 1), new DateTime(2024, 2, 5));
-        double preco = -320;
 
         //--AÇÃO - ACTION
         OfertaViagem oferta = new OfertaViagem(rota, periodo, preco);
@@ -57,9 +60,9 @@ public class OfertaViagemConstrutor
     public void RetornaValidoseInvalidosDeAcordoComEntradas(string origem, string destino, string dataIda, string dataVolta, double preco, bool validacao)
     {
         //--CENARIO
-        Rota rota = new Rota(origem,destino);
+        Rota rota = new Rota(origem, destino);
         Periodo periodo = new Periodo(DateTime.Parse(dataIda), DateTime.Parse(dataVolta));
-        
+
         //--AÇÃO
         OfertaViagem oferta = new OfertaViagem(rota, periodo, preco);
 
