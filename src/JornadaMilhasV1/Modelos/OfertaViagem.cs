@@ -23,7 +23,7 @@ public class OfertaViagem : Valida
         {
             desconto = value;
             if (desconto >= Preco)
-                Preco *= (1- DESCONTO_MAXIMO);
+                Preco *= (1 - DESCONTO_MAXIMO);
             else
                 Preco -= desconto;
         }
@@ -46,17 +46,13 @@ public class OfertaViagem : Valida
     protected override void Validar()
     {
         if (!Periodo.EhValido)
-        {
             Erros.RegistrarErro(Periodo.Erros.Sumario);
-        }
-        else if (Rota == null || Periodo == null)
-        {
+
+        if (Rota == null || Periodo == null)
             Erros.RegistrarErro("A oferta de viagem não possui rota ou período válidos.");
-        }
-        else if (Preco <= 0)
-        {
+
+        if (Preco <= 0)
             Erros.RegistrarErro("O preço da oferta de viagem deve ser maior que zero.");
-        }
 
     }
 }
